@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react';
+import axios from 'axios'
 import {Modal, Button, Form} from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -11,9 +12,16 @@ function ModalForm() {
     const handleShow = () => setShow(true);
     const {register, handleSubmit} = useForm();
 
-
     const onSubmit = (data) => {
-        console.log(data)
+        console.log(register)
+        axios.post('/users', data)
+        .then(reponse  => {
+            console.log(reponse)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+        
     }
 
     return (
