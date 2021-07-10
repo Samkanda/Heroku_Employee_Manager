@@ -9,7 +9,7 @@ const Show = () => {
     const [users, setProduct] = useState(null)
 
     useEffect(() => {
-        axios.get(url)
+        axios.get('/users')
         .then(response => {
             setProduct(response.data)
             console.log(response.data)
