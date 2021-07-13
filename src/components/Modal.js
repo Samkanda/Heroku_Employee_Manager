@@ -9,7 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 function ModalForm() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true);
+    }
     const {register, handleSubmit} = useForm();
 
     const onSubmit = (data) => {
