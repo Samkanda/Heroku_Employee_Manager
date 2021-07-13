@@ -7,8 +7,6 @@ const { App } = require('react-bootstrap-icons');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 
-
-
  
 //Middlewares
 app.use(cors());
@@ -35,4 +33,3 @@ app.use('/users', usersRouter)
 
 
 app.listen(5000)
-// export default app
