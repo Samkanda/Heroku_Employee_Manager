@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import {Button} from 'react-bootstrap';
-import { Trash } from 'react-bootstrap-icons';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Update_Modal from './Update_Modal';
+import UpdateModal from './UpdateModal';
+import DeleteModal from './DeleteModal';
+import '../components/Modal.css'
 
 const Show = () => {
     const url = 'https://60d4dcdcc6549200173a50fa.mockapi.io/Users'
@@ -27,10 +27,11 @@ const Show = () => {
                     <td>{users.email}</td>
                     <td>{users.gender}</td>
                     <td>{users.status}</td>
-                    <td><img alt="avatar" src = {users.avatar}></img ></td>
+                    <td ><img  className= 'roundedImage' alt="avatar" src = {users.avatar}></img ></td>
+                    {console.log(users.avatar)}
                 <td>
-                <Update_Modal data = {users}/>
-                <Button variant="danger"><Trash className="bi bi-trash" /></Button>
+                <UpdateModal data = {users}/>
+                <DeleteModal data = {users}/>
                 </td>
               </tr>
               
