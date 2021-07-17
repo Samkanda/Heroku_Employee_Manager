@@ -1,5 +1,19 @@
 const router = require('express').Router();
 const User = require('../model/user_model')
+const multer = require('multer');
+const path = require('path')
+
+
+const storage = multer.diskStorage({ // notice you are calling the multer.diskStorage() method here, not multer()
+    destination: function(req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname )
+    }
+});
+
+const upload = multer({storage:storage});
 
 
 //Retrieves all Posts
@@ -10,16 +24,17 @@ router.route('/').get((req, res) => {
 });
 
 //Submits a Post
-router.post('/', (req,res) => {
+router.post('/', upload.single('avatar'), (req,res) => {
         const user = new User({
             name: req.body.name,
             email: req.body.email,
             gender: req.body.gender,
-            status: req.body.status
+            status: req.body.status,
+            avatar: req.file.path
         });
         user.save()
         .then(data => {
-            res.json(data);
+            res.send(data);
         })
         .catch(err => {
             res.json({message: err})
