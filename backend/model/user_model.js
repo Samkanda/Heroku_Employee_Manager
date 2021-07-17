@@ -6,13 +6,13 @@ var schema = new mongoose.Schema({
         required: true
     },
     email : {
-        type: String,
         required: true,
+        type: String,
         unique: true
     },
     gender : String,
     status : String,
-    //avatar : { type: String, required: true }
+    avatar : { type: String, required: true }
 
 })
 
