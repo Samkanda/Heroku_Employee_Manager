@@ -88,3 +88,16 @@ body {
   transition: all 1.3s;
   width: 100%;
 }
+
+.roundedImage {
+  background: url(http://placehold.it/50x50);
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  overflow:hidden;
+  -webkit-border-radius:50px;
+  -moz-border-radius:50px;
+  border-radius:50px;
+  width:90px;
+  height:90px;
+}
