@@ -5,6 +5,9 @@ const mongoose = require('mongoose')
 var cors = require('cors');
 const { App } = require('react-bootstrap-icons');
 require('dotenv').config();
+const serverless = require('serverless-http')
+
+
 const port = process.env.PORT || 5000;
 
  
