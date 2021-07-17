@@ -18,7 +18,8 @@ function ModalForm() {
         console.log(register)
         axios.post('/users', data)
         .then(reponse  => {
-            console.log(reponse)
+            console.log(reponse.data)
+            window.location.reload(true);
         })
         .catch(error => {
             console.log(error)
@@ -36,7 +37,7 @@ function ModalForm() {
             <Modal.Title>Add New User</Modal.Title>
           </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                     <Form.Group controlId="formBasicName">
                         <Form.Label >Full Name</Form.Label>
                         <Form.Control type="text" placeholder="Full Name" 
@@ -68,7 +69,7 @@ function ModalForm() {
                     </Form.Group>
                     <Form.Group>
                         <Form.File id="formBasicAvatar" label="Avatar image upload" 
-                            name="avatar" {...register('avatar')}/>
+                            name="avatar" filename="avatar" {...register('avatar')}/>
                     </Form.Group>
                     <Modal.Footer>
                     <Button variant="primary" type="submit" onClick={handleClose}>
