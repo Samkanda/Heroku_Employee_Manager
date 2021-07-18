@@ -29,9 +29,9 @@ mongoose.connect(process.env.MONGO_URL,
 );
 
 const usersRouter = require('./backend/routes/users')
-app.use('/.netlify/users', usersRouter)
+app.use('/users', usersRouter)
 
 
 app.listen(5000)
 
-module.exports.handler = serverless(app)
+//module.exports.handler = serverless(app)
