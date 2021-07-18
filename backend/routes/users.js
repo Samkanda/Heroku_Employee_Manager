@@ -2,8 +2,7 @@ const router = require('express').Router();
 const User = require('../model/user_model')
 const multer = require('multer');
 const path = require('path')
-const app = express();
-const serverless = require('serverless-http')
+
 
 const storage = multer.diskStorage({ // notice you are calling the multer.diskStorage() method here, not multer()
     destination: function(req, file, cb) {
@@ -74,6 +73,4 @@ router.post('/', upload.single('avatar'), (req,res) => {
         }
     })
 
-    app.use('/.netlify/backend/routes/users', router)
-    module.exports.handler = serverless(app)
-//module.exports = router;
+module.exports = router;
