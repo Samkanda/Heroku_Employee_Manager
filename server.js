@@ -8,6 +8,7 @@ require('dotenv').config();
 const serverless = require('serverless-http')
 
 
+
 const port = process.env.PORT || 5000;
 
  
@@ -28,10 +29,10 @@ mongoose.connect(process.env.MONGO_URL,
     () => console.log('Connected TO Db!')
 );
 
-const usersRouter = require('./backend/routes/users')
-app.use('/users', usersRouter)
+const usersRouter = require('./functions/users')
+app.use('/.netlify/functions/users', usersRouter)
 
 
 app.listen(5000)
 
-//module.exports.handler = serverless(app)
+module.exports.handler = serverless(app)
