@@ -1,13 +1,12 @@
 const router = require('express').Router();
 const User = require('../model/user_model')
 const multer = require('multer');
-const path = require('path')
-const app = express();
-const serverless = require('serverless-http')
+const path = require('path');
+
 
 const storage = multer.diskStorage({ // notice you are calling the multer.diskStorage() method here, not multer()
     destination: function(req, file, cb) {
-        cb(null, './uploads/')
+        cb(null, 'public/uploads')
     },
     filename: function(req, file, cb) {
         cb(null, file.originalname )
@@ -26,12 +25,14 @@ router.route('/').get((req, res) => {
 
 //Submits a Post
 router.post('/', upload.single('avatar'), (req,res) => {
+    console.log(req.body)
+    console.log('avatar')
         const user = new User({
             name: req.body.name,
             email: req.body.email,
             gender: req.body.gender,
             status: req.body.status,
-            avatar: req.file.path
+            avatar: req.file.originalname
         });
         user.save()
         .then(data => {
@@ -64,16 +65,18 @@ router.post('/', upload.single('avatar'), (req,res) => {
 
     //Update a post
     router.patch('/:postId', async (req, res) => {
-        id = req.params.postId;
+        
         try{
-            const updatedUser = await User.findByIdAndUpdate(
-                id, req.body, {useFindAndModify:false});
-            res.json(updatedUser)
-        }catch{
-
+            const updatedPost = await User.updateOne({_id: req.params.postId}, 
+                {$set: {name:req.body.name, email:req.body.email, status:req.body.status, gender:req.body.gender}}
+                );
+                res.send(updatedPost)
+        }
+        catch(err){
+            res.json({message: err})
         }
     })
 
-    app.use('/.netlify/backend/routes/users', router)
-    module.exports.handler = serverless(app)
-//module.exports = router;
+
+
+module.exports = router;
