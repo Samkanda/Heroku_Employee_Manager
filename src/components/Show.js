@@ -27,7 +27,7 @@ const Show = () => {
                     <td>{users.email}</td>
                     <td>{users.gender}</td>
                     <td>{users.status}</td>
-                    <td ><img  className= 'roundedImage' alt="avatar" src = {users.avatar}></img ></td>
+                    <td ><img  className= 'roundedImage' alt="avatar" src = {'uploads/' + users.avatar}></img ></td>
                     {console.log(users.avatar)}
                 <td>
                 <UpdateModal data = {users}/>
