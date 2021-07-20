@@ -13,15 +13,15 @@ function UpdateModal(props) {
 
     const handleShow = () => {
         setShow(true);
-        console.log(formData.name)
+        console.log(formData)
     }
-
     
     const {register, handleSubmit} = useForm();
     const [formData, setFormData] = useState(props.data);
 
     const onSubmit = (data) => {
-         let id = props.data._id;
+        let id = props.data._id;
+        console.log(data);
         axios.patch(`/users/${id}`, data)
         .then(reponse  => {
             console.log(reponse)
@@ -29,6 +29,7 @@ function UpdateModal(props) {
         })
         .catch(error => {
             console.log(error)
+            console.log("Patch did not work")
         })
         
     }
@@ -42,44 +43,48 @@ function UpdateModal(props) {
             <Modal.Title>Update User Info</Modal.Title>
           </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                     <Form.Group controlId="formBasicName">
                         <Form.Label >Full Name</Form.Label>
-                        <Form.Control type="text" placeholder="Full Name" 
+                        <Form.Control type="text" placeholder={formData.name }
                             name="name" {...register('name')} 
-                            value={formData.name } onChange={(e) => setFormData(e.target.value)}/>
+                            //value={formData.name } onChange={(e) => this.setFormData(e.target.value)}
+                        />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" 
+                        <Form.Control type="email" placeholder={formData.email }
                             name="email" {...register('email')} 
-                            value={formData.email} onChange={(e) => setFormData(e.target.value)}/>
+                            //value={formData.email} onChange={(e) => setFormData(e.target.value)}
+                        />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
                     <Form.Group controlId="formBasicGender">
                         <Form.Label>Gender</Form.Label>
                         <Form.Label></Form.Label>
-                        <Form.Control type="text" placeholder="Enter Gender" 
+                        <Form.Control type="text" placeholder={formData.gender }
                             name="gender" {...register('gender')} 
-                            value={formData.gender} onChange={(e) => setFormData(e.target.value)}/>
+                            //value={formData.gender} onChange={(e) => setFormData(e.target.value)}
+                        />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
                     <Form.Group controlId="formBasicStatus">
                         <Form.Label>Status</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Status" 
+                        <Form.Control type="text" placeholder={formData.status} 
                             name="status" {...register('status')} 
-                            value={formData.status} onChange={(e) => setFormData(e.target.value)}/>
+                            //value={formData.status} onChange={(e) => setFormData(e.target.value)}
+                        />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
-                    <Form.Group>
+                    {/* <Form.Group>
                         <Form.File id="formBasicAvatar" label="Avatar image upload" 
-                            name="avatar" {...register('avatar')} />
-                    </Form.Group>
+                            name="avatar" filename="avatar" {...register('avatar')} />
+                    </Form.Group> */}
                     <Modal.Footer>
                     <Button variant="primary" type="submit" onClick={handleClose}>
                         Submit
@@ -95,5 +100,4 @@ function UpdateModal(props) {
     );
   }
   
-
 export default UpdateModal 
