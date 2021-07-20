@@ -4,9 +4,12 @@ import axios from 'axios'
 import {Modal, Button, Form} from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import FormData from 'form-data'
 
 
 function ModalForm() {
+
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => {
@@ -15,14 +18,23 @@ function ModalForm() {
     const {register, handleSubmit} = useForm();
 
     const onSubmit = (data) => {
-        console.log(register)
-        axios.post('/users', data)
+        let formdata = new FormData();
+        let avatar = data.avatar[0]
+        formdata.append('avatar', avatar)
+        formdata.append('email', data.email)
+        formdata.append('name', data.name)
+        formdata.append('status', data.status)
+        formdata.append('gender', data.gender)
+
+
+        axios.post('/users', formdata)
         .then(reponse  => {
             console.log(reponse.data)
             window.location.reload(true);
         })
         .catch(error => {
             console.log(error)
+            console.log("errorsds")
         })
         
     }
